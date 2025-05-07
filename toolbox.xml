@@ -1,0 +1,6 @@
+<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+  <category name="HOME:BIT V3" colour="#CC6600" icon="home">
+    <block type="smartcity_read_uvi" />
+    <block type="smartcity_read_pm25" />
+  </category>
+</xml>
