@@ -8,7 +8,6 @@ __license__ = "Apache License 2.0. https://www.apache.org/licenses/LICENSE-2.0"
 # I2C address B 0x45 ADDR (pin 2) connected to VDD
 DEFAULT_I2C_ADDRESS = 0x44
 
-
 class SHT30:
     """
     SHT30 sensor driver in pure python based on I2C bus
@@ -203,3 +202,5 @@ class SHT30Error(Exception):
             return "CRC error"
         else:
             return "Unknown error"
+
+sht30 = SHT30()

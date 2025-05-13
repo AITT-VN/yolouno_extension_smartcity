@@ -2,8 +2,12 @@
     "name": "HOME:BIT V3",
     "description": "Mục mở rộng dành cho bộ kit nhà thông minh version 3",
     "libs": [
-        "smartcity_s12sd_tested.py", 
-        "smartcity_pm25_untested.py"
+        "smartcity_s12sd.py", 
+        "smartcity_pm25.py",
+        "smartcity_sht30.py",
+        "smartcity_veml6040.py",
+        "smartcity_lcd1602.py",
+        "smartcity_acd1100.py"
     ],
     "blocks": [
         "definition.js"
