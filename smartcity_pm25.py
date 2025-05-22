@@ -1,8 +1,10 @@
 from setting import *
 from utility import *
-from machine import Pin, UART
-import utime
-import ujson
+from machine import UART
+
+# from machine import Pin
+# import utime
+# import ujson
 
 
 class HT5102:
@@ -24,8 +26,11 @@ class HT5102:
         received_checksum = (data[15] << 8) | data[16]  # 2 byte cuối
         return checksum == received_checksum
 
-    def read_pm_data(self):
+    def read_pm_data(self, tx_pin, rx_pin):
         """Đọc giá trị PM2.5 và PM10 từ cảm biến."""
+        # self.rx = rx_pin
+        # self.tx = tx_pin
+        # TODO: Add UART TX RX change implementation
         while True:
             # Tìm header 0x42 0x4D
             header = self.uart.read(2)

@@ -66,10 +66,10 @@ def rgb2hsv(r, g, b):
     return {"hue": h * 360, "sat": s, "val": v}
 
 
-class VEML6040Sensor:
+class VEML6040:
 
-    def __init__(self, address=_VEML6040_I2C_ADDRESS):
-        self._i2c = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN, freq=100000)
+    def __init__(self, scl, sda, address=_VEML6040_I2C_ADDRESS):
+        self._i2c = machine.SoftI2C(scl=scl, sda=sda, freq=100000)
         self._addr = address
         self._config = 0
 
@@ -195,5 +195,3 @@ class VEML6040Sensor:
         d = self.read_rgb()
         return rgb2hsv(d["red"], d["green"], d["blue"])
 
-
-veml6040_sensor = VEML6040Sensor()

@@ -39,22 +39,22 @@ class SHT30:
 
     def __init__(
         self,
-        scl_pin=5,
-        sda_pin=4,
+        scl=5,
+        sda=4,
         i2c_address=DEFAULT_I2C_ADDRESS,
         delta_temp=0,
         delta_hum=0,
     ):
-        self.i2c = SoftI2C(scl=Pin(scl_pin), sda=Pin(sda_pin))
+        self.i2c = SoftI2C(scl=Pin(scl), sda=Pin(sda))
         self.i2c_addr = i2c_address
         self.set_delta(delta_temp, delta_hum)
         time.sleep_ms(50)
 
-    def init(self, scl_pin=5, sda_pin=4):
+    def init(self, scl=5, sda=4):
         """
         Init the I2C bus using the new pin values
         """
-        self.i2c.init(scl=Pin(scl_pin), sda=Pin(sda_pin))
+        self.i2c.init(scl=Pin(scl), sda=Pin(sda))
 
     def address(self, i2c_address):
         """
@@ -202,5 +202,3 @@ class SHT30Error(Exception):
             return "CRC error"
         else:
             return "Unknown error"
-
-sht30 = SHT30()

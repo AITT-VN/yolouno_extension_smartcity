@@ -26,6 +26,8 @@
       </value>
     </block>
     <block type="smartcity_lcd1602_clear" />
+    <block type="smartcity_bmp280_read_temp" />
+    <block type="smartcity_bmp280_read_pressure" />
 
   </category>
 </xml>

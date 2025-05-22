@@ -5,7 +5,7 @@ Blockly.Blocks["smartcity_read_uvi"] = {
 		this.jsonInit({
 			colour: "#CC6600",
 			tooltip: "",
-			message0: "chỉ số UV ở chân %1",
+			message0: "chỉ số UV chân %1",
 			args0: [
   {
     type: "field_dropdown",
@@ -30,9 +30,9 @@ Blockly.Blocks["smartcity_read_uvi"] = {
 
 Blockly.Python["smartcity_read_uvi"] = function (block) {
 	var uv_pin = block.getFieldValue("uv_pin");
-	Blockly.Python.definitions_['import_smartcity_s12sd'] = 'from smartcity_s12sd import *';
-	Blockly.Python.definitions_['init_smartcity_s12sd'] = 'smartcity_uv = S12SD(pin=(' + uv_pin + '))';
-	var code = 'smartcity_uv.read_uvi()';
+	Blockly.Python.definitions_['import_from smartcity_s12sd import S12SD'] = 'from smartcity_s12sd import S12SD';
+	Blockly.Python.definitions_['initial_from smartcity_s12sd import S12SD'] = 'uv_sensor = S12SD()';
+	var code = 'uv_sensor.read_uvi(pin='+uv_pin+')';
 	return [code, Blockly.Python.ORDER_NONE];
 };
 
@@ -41,46 +41,46 @@ Blockly.Blocks["smartcity_read_pm25"] = {
 		this.jsonInit({
 			colour: "#CC6600",
 			tooltip: "",
-			message0: "giá trị cảm biến bụi ở chân TX %1 và RX %2",
+			message0: "đọc cảm biến bụi mịn chân TX %1 RX %2",
 			args0: [
   {
     type: "field_dropdown",
     name: "pm25_pintx",
     options: [
-      ["A0", "A0_PIN"],
-      ["A1", "A1_PIN"],
-      ["A2", "A2_PIN"],
-      ["A3", "A3_PIN"],
-      ["A4", "A4_PIN"],
-      ["A5", "A5_PIN"],
-      ["A6", "A6_PIN"],
-      ["A7", "A7_PIN"],
-      ["A8", "A8_PIN"],
-      ["A9", "A9_PIN"],
-      ["A10", "A10_PIN"],
-      ["A11", "A11_PIN"],
-      ["A12", "A12_PIN"],
-      ["A13", "A13_PIN"]
+      ["D0", "D0_PIN"],
+      ["D1", "D1_PIN"],
+      ["D2", "D2_PIN"],
+      ["D3", "D3_PIN"],
+      ["D4", "D4_PIN"],
+      ["D5", "D5_PIN"],
+      ["D6", "D6_PIN"],
+      ["D7", "D7_PIN"],
+      ["D8", "D8_PIN"],
+      ["D9", "D9_PIN"],
+      ["D10", "D10_PIN"],
+      ["D11", "D11_PIN"],
+      ["D12", "D12_PIN"],
+      ["D13", "D13_PIN"]
     ]
   },
   {
     type: "field_dropdown",
     name: "pm25_pinrx",
     options: [
-      ["A0", "A0_PIN"],
-      ["A1", "A1_PIN"],
-      ["A2", "A2_PIN"],
-      ["A3", "A3_PIN"],
-      ["A4", "A4_PIN"],
-      ["A5", "A5_PIN"],
-      ["A6", "A6_PIN"],
-      ["A7", "A7_PIN"],
-      ["A8", "A8_PIN"],
-      ["A9", "A9_PIN"],
-      ["A10", "A10_PIN"],
-      ["A11", "A11_PIN"],
-      ["A12", "A12_PIN"],
-      ["A13", "A13_PIN"]
+      ["D0", "D0_PIN"],
+      ["D1", "D1_PIN"],
+      ["D2", "D2_PIN"],
+      ["D3", "D3_PIN"],
+      ["D4", "D4_PIN"],
+      ["D5", "D5_PIN"],
+      ["D6", "D6_PIN"],
+      ["D7", "D7_PIN"],
+      ["D8", "D8_PIN"],
+      ["D9", "D9_PIN"],
+      ["D10", "D10_PIN"],
+      ["D11", "D11_PIN"],
+      ["D12", "D12_PIN"],
+      ["D13", "D13_PIN"]
     ]
   }
 ],
@@ -93,9 +93,9 @@ Blockly.Blocks["smartcity_read_pm25"] = {
 Blockly.Python["smartcity_read_pm25"] = function (block) {
 	var pm25_pintx = block.getFieldValue("pm25_pintx");
 	var pm25_pinrx = block.getFieldValue("pm25_pinrx");
-	Blockly.Python.definitions_['import_smartcity_pm25'] = 'from smartcity_pm25 import *';
-	Blockly.Python.definitions_['init_smartcity_pm25'] = 'pm_sensor = HT5102(tx='+pm25_pintx+', rx='+pm25_pinrx+')';
-	var code = 'pm_sensor.read_pm_data()';
+	Blockly.Python.definitions_['import_from smartcity_pm25 import HT5102'] = 'from smartcity_pm25 import HT5102';
+	Blockly.Python.definitions_['initial_from smartcity_pm25 import HT5102'] = 'pm25_sensor = HT5102()';
+	var code = 'pm25_sensor.read_pm_data(tx_pin='+pm25_pintx+', rx_pin='+pm25_pinrx+')';
 	return [code, Blockly.Python.ORDER_NONE];
 };
 
@@ -108,16 +108,16 @@ Blockly.Blocks["smartcity_sht30_read_temp"] = {
 			args0: [
 
 ],
-			output: "undefined",
+			output: "Number",
 			helpUrl: ""
 		});
 	}
 };
 
 Blockly.Python["smartcity_sht30_read_temp"] = function (block) {
-	Blockly.Python.definitions_['import_smartcity_sht30'] = 'from smartcity_sht30 import *';
-	Blockly.Python.definitions_['init_smartcity_sht30'] = 'sht30 = SHT30(SCL_PIN, SDA_PIN)';
-	var code = 'sht30.measure(fix=1)[0]';
+	Blockly.Python.definitions_['import_from smartcity_sht30 import SHT30'] = 'from smartcity_sht30 import SHT30';
+	Blockly.Python.definitions_['initial_from smartcity_sht30 import SHT30'] = 'sht30_sensor = SHT30(scl=SCL_PIN, sda=SDA_PIN)';
+	var code = 'sht30_sensor.measure(fix=1)[0]';
 	return [code, Blockly.Python.ORDER_NONE];
 };
 
@@ -130,16 +130,16 @@ Blockly.Blocks["smartcity_sht30_read_humid"] = {
 			args0: [
 
 ],
-			output: "undefined",
+			output: "Number",
 			helpUrl: ""
 		});
 	}
 };
 
 Blockly.Python["smartcity_sht30_read_humid"] = function (block) {
-	Blockly.Python.definitions_['import_smartcity_sht30'] = 'from smartcity_sht30 import *';
-	Blockly.Python.definitions_['init_smartcity_sht30'] = 'sht30 = SHT30(SCL_PIN, SDA_PIN)';
-	var code = 'sht30.measure(fix=1)[1]';
+	Blockly.Python.definitions_['import_from smartcity_sht30 import SHT30'] = 'from smartcity_sht30 import SHT30';
+	Blockly.Python.definitions_['initial_from smartcity_sht30 import SHT30'] = 'sht30_sensor = SHT30(scl=SCL_PIN, sda=SDA_PIN)';
+	var code = 'sht30_sensor.measure(fix=1)[1]';
 	return [code, Blockly.Python.ORDER_NONE];
 };
 
@@ -182,7 +182,8 @@ Blockly.Python['smartcity_veml6040_read_color'] = function (block) {
 		code = 'veml6040_sensor.get_' + color.toLowerCase() + '()';
 	}
 
-	Blockly.Python.definitions_['import_smartcity_veml6040'] = 'from smartcity_veml6040 import *';
+	Blockly.Python.definitions_['import_smartcity_veml6040'] = 'from smartcity_veml6040 import VEML6040';
+	Blockly.Python.definitions_['initital_smartcity_veml6040'] = "veml6040_sensor = VEML6040(scl=SCL_PIN, sda=SDA_PIN)"
 
 	return [code, Blockly.Python.ORDER_ATOMIC];
 };
@@ -216,6 +217,8 @@ Blockly.Blocks['smartcity_veml6040_detect_color'] = {
 Blockly.Python['smartcity_veml6040_detect_color'] = function (block) {
 	var detectColor = block.getFieldValue('DETECT_COLOR');
 	var code = '(veml6040_sensor.Classify_Hue() == "' + detectColor + '")';
+	Blockly.Python.definitions_['import_smartcity_veml6040'] = 'from smartcity_veml6040 import VEML6040';
+	Blockly.Python.definitions_['initital_smartcity_veml6040'] = "veml6040_sensor = VEML6040(scl=SCL_PIN, sda=SDA_PIN)"
 	return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
@@ -233,8 +236,9 @@ Blockly.Blocks['smartcity_acd1100_read_co2'] = {
 };
 
 Blockly.Python['smartcity_acd1100_read_co2'] = function (block) {
-	Blockly.Python.definitions_['import_smartcity_acd1100'] = 'from smartcity_acd1100 import *';
-	var code = "ACD1100.get_co2_concentration()"
+	Blockly.Python.definitions_['import_smartcity_acd1100'] = 'from smartcity_acd1100 import ACD1100';
+	Blockly.Python.definitions_['initial_smartcity_acd1100'] = 'co2_sensor = ACD1100(scl=SCL_PIN, sda=SDA_PIN)';
+	var code = "co2_sensor.get_co2_concentration()"
 	return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
@@ -270,7 +274,7 @@ Blockly.Python['smartcity_lcd1602_backlight'] = function (block) {
 	var action = block.getFieldValue("action");
 	// TODO: Assemble Python into code variable.
 	Blockly.Python.definitions_['import_lcd1602'] = 'from smartcity_lcd1602 import LCD1602';
-	Blockly.Python.definitions_['import_lcd1602_init'] = 'lcd1602 = LCD1602()';
+	Blockly.Python.definitions_['init_lcd1602'] = 'lcd1602 = LCD1602()';
 	var code = 'lcd1602.backlight_' + action + '()\n';
 	return code;
 };
@@ -316,7 +320,7 @@ Blockly.Blocks["smartcity_lcd1602_display"] = {
 
 Blockly.Python["smartcity_lcd1602_display"] = function (block) {
 	Blockly.Python.definitions_['import_lcd1602'] = 'from smartcity_lcd1602 import LCD1602';
-	Blockly.Python.definitions_['import_lcd1602_init'] = 'lcd1602 = LCD1602()';
+	Blockly.Python.definitions_['init_lcd1602'] = 'lcd1602 = LCD1602()';
 	var string = Blockly.Python.valueToCode(block, 'string', Blockly.Python.ORDER_ATOMIC);
 	var x = Blockly.Python.valueToCode(block, 'X', Blockly.Python.ORDER_ATOMIC);
 	var y = Blockly.Python.valueToCode(block, 'Y', Blockly.Python.ORDER_ATOMIC);  // TODO: Assemble Python into code variable.
@@ -345,7 +349,7 @@ Blockly.Blocks["smartcity_lcd1602_clear"] = {
 Blockly.Python["smartcity_lcd1602_clear"] = function (block) {
 	// TODO: Assemble Python into code variable.
 	Blockly.Python.definitions_['import_lcd1602'] = 'from smartcity_lcd1602 import LCD1602';
-	Blockly.Python.definitions_['import_lcd1602_init'] = 'lcd1602 = LCD1602()';
+	Blockly.Python.definitions_['init_lcd1602'] = 'lcd1602 = LCD1602()';
 	var code = "lcd1602.clear()\n";
 	return code;
 };
