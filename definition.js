@@ -1,4 +1,4 @@
-// Auto-generated Blockly blocks and Python code
+/* S12SD UV sensor */
 
 Blockly.Blocks["smartcity_read_uvi"] = {
 	init: function () {
@@ -7,21 +7,21 @@ Blockly.Blocks["smartcity_read_uvi"] = {
 			tooltip: "",
 			message0: "chỉ số UV chân %1",
 			args0: [
-  {
-    type: "field_dropdown",
-    name: "uv_pin",
-    options: [
-      ["A0", "A0_PIN"],
-      ["A1", "A1_PIN"],
-      ["A2", "A2_PIN"],
-      ["A3", "A3_PIN"],
-      ["A4", "A4_PIN"],
-      ["A5", "A5_PIN"],
-      ["A6", "A6_PIN"],
-      ["A7", "A7_PIN"]
-    ]
-  }
-],
+				{
+					type: "field_dropdown",
+					name: "uv_pin",
+					options: [
+						["A0", "A0_PIN"],
+						["A1", "A1_PIN"],
+						["A2", "A2_PIN"],
+						["A3", "A3_PIN"],
+						["A4", "A4_PIN"],
+						["A5", "A5_PIN"],
+						["A6", "A6_PIN"],
+						["A7", "A7_PIN"]
+					]
+				}
+			],
 			output: "Number",
 			helpUrl: ""
 		});
@@ -32,9 +32,11 @@ Blockly.Python["smartcity_read_uvi"] = function (block) {
 	var uv_pin = block.getFieldValue("uv_pin");
 	Blockly.Python.definitions_['import_from smartcity_s12sd import S12SD'] = 'from smartcity_s12sd import S12SD';
 	Blockly.Python.definitions_['initial_from smartcity_s12sd import S12SD'] = 'uv_sensor = S12SD()';
-	var code = 'uv_sensor.read_uvi(pin='+uv_pin+')';
+	var code = 'uv_sensor.read_uvi(pin=' + uv_pin + ')';
 	return [code, Blockly.Python.ORDER_NONE];
 };
+
+/* PM25 sensor */
 
 Blockly.Blocks["smartcity_read_pm25"] = {
 	init: function () {
@@ -43,47 +45,47 @@ Blockly.Blocks["smartcity_read_pm25"] = {
 			tooltip: "",
 			message0: "đọc cảm biến bụi mịn chân TX %1 RX %2",
 			args0: [
-  {
-    type: "field_dropdown",
-    name: "pm25_pintx",
-    options: [
-      ["D0", "D0_PIN"],
-      ["D1", "D1_PIN"],
-      ["D2", "D2_PIN"],
-      ["D3", "D3_PIN"],
-      ["D4", "D4_PIN"],
-      ["D5", "D5_PIN"],
-      ["D6", "D6_PIN"],
-      ["D7", "D7_PIN"],
-      ["D8", "D8_PIN"],
-      ["D9", "D9_PIN"],
-      ["D10", "D10_PIN"],
-      ["D11", "D11_PIN"],
-      ["D12", "D12_PIN"],
-      ["D13", "D13_PIN"]
-    ]
-  },
-  {
-    type: "field_dropdown",
-    name: "pm25_pinrx",
-    options: [
-      ["D0", "D0_PIN"],
-      ["D1", "D1_PIN"],
-      ["D2", "D2_PIN"],
-      ["D3", "D3_PIN"],
-      ["D4", "D4_PIN"],
-      ["D5", "D5_PIN"],
-      ["D6", "D6_PIN"],
-      ["D7", "D7_PIN"],
-      ["D8", "D8_PIN"],
-      ["D9", "D9_PIN"],
-      ["D10", "D10_PIN"],
-      ["D11", "D11_PIN"],
-      ["D12", "D12_PIN"],
-      ["D13", "D13_PIN"]
-    ]
-  }
-],
+				{
+					type: "field_dropdown",
+					name: "pm25_pintx",
+					options: [
+						["D0", "D0_PIN"],
+						["D1", "D1_PIN"],
+						["D2", "D2_PIN"],
+						["D3", "D3_PIN"],
+						["D4", "D4_PIN"],
+						["D5", "D5_PIN"],
+						["D6", "D6_PIN"],
+						["D7", "D7_PIN"],
+						["D8", "D8_PIN"],
+						["D9", "D9_PIN"],
+						["D10", "D10_PIN"],
+						["D11", "D11_PIN"],
+						["D12", "D12_PIN"],
+						["D13", "D13_PIN"]
+					]
+				},
+				{
+					type: "field_dropdown",
+					name: "pm25_pinrx",
+					options: [
+						["D0", "D0_PIN"],
+						["D1", "D1_PIN"],
+						["D2", "D2_PIN"],
+						["D3", "D3_PIN"],
+						["D4", "D4_PIN"],
+						["D5", "D5_PIN"],
+						["D6", "D6_PIN"],
+						["D7", "D7_PIN"],
+						["D8", "D8_PIN"],
+						["D9", "D9_PIN"],
+						["D10", "D10_PIN"],
+						["D11", "D11_PIN"],
+						["D12", "D12_PIN"],
+						["D13", "D13_PIN"]
+					]
+				}
+			],
 			output: "undefined",
 			helpUrl: ""
 		});
@@ -95,9 +97,11 @@ Blockly.Python["smartcity_read_pm25"] = function (block) {
 	var pm25_pinrx = block.getFieldValue("pm25_pinrx");
 	Blockly.Python.definitions_['import_from smartcity_pm25 import HT5102'] = 'from smartcity_pm25 import HT5102';
 	Blockly.Python.definitions_['initial_from smartcity_pm25 import HT5102'] = 'pm25_sensor = HT5102()';
-	var code = 'pm25_sensor.read_pm_data(tx_pin='+pm25_pintx+', rx_pin='+pm25_pinrx+')';
+	var code = 'pm25_sensor.read_pm_data(tx_pin=' + pm25_pintx + ', rx_pin=' + pm25_pinrx + ')';
 	return [code, Blockly.Python.ORDER_NONE];
 };
+
+/* SHT30 temperature and humidity sensor */
 
 Blockly.Blocks["smartcity_sht30_read_temp"] = {
 	init: function () {
@@ -107,7 +111,7 @@ Blockly.Blocks["smartcity_sht30_read_temp"] = {
 			message0: "nhiệt độ SHT30",
 			args0: [
 
-],
+			],
 			output: "Number",
 			helpUrl: ""
 		});
@@ -129,7 +133,7 @@ Blockly.Blocks["smartcity_sht30_read_humid"] = {
 			message0: "độ ẩm SHT30",
 			args0: [
 
-],
+			],
 			output: "Number",
 			helpUrl: ""
 		});
@@ -143,7 +147,7 @@ Blockly.Python["smartcity_sht30_read_humid"] = function (block) {
 	return [code, Blockly.Python.ORDER_NONE];
 };
 
-
+/* VEML6040 light sensor */
 
 Blockly.Blocks['smartcity_veml6040_read_color'] = {
 	init: function () {
@@ -222,6 +226,8 @@ Blockly.Python['smartcity_veml6040_detect_color'] = function (block) {
 	return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
+/* ACD1100 CO2 sensor */
+
 Blockly.Blocks['smartcity_acd1100_read_co2'] = {
 	init: function () {
 		this.jsonInit({
@@ -242,7 +248,7 @@ Blockly.Python['smartcity_acd1100_read_co2'] = function (block) {
 	return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
-// LCD 1602
+/* LCD1602 */
 
 Blockly.Blocks["smartcity_lcd1602_backlight"] = {
 	init: function () {
@@ -320,7 +326,7 @@ Blockly.Blocks["smartcity_lcd1602_display"] = {
 
 Blockly.Python["smartcity_lcd1602_display"] = function (block) {
 	Blockly.Python.definitions_['import_lcd1602'] = 'from smartcity_lcd1602 import LCD1602';
-	Blockly.Python.definitions_['init_lcd1602'] = 'lcd1602 = LCD1602()';
+	Blockly.Python.definitions_['init_lcd1602'] = 'lcd1602 = LCD1602(scl=SCL_PIN, sda=SDA_PIN)';
 	var string = Blockly.Python.valueToCode(block, 'string', Blockly.Python.ORDER_ATOMIC);
 	var x = Blockly.Python.valueToCode(block, 'X', Blockly.Python.ORDER_ATOMIC);
 	var y = Blockly.Python.valueToCode(block, 'Y', Blockly.Python.ORDER_ATOMIC);  // TODO: Assemble Python into code variable.
@@ -346,10 +352,57 @@ Blockly.Blocks["smartcity_lcd1602_clear"] = {
 	}
 };
 
-Blockly.Python["smartcity_lcd1602_clear"] = function (block) {
-	// TODO: Assemble Python into code variable.
-	Blockly.Python.definitions_['import_lcd1602'] = 'from smartcity_lcd1602 import LCD1602';
-	Blockly.Python.definitions_['init_lcd1602'] = 'lcd1602 = LCD1602()';
-	var code = "lcd1602.clear()\n";
-	return code;
+/* BMP280 pressure and temperature sensor */
+
+Blockly.Blocks['smartcity_bmp280_read'] = {
+	init: function () {
+		this.jsonInit({
+			colour: "#CC6600",
+			tooltip: "",
+			message0: "đọc %1 cảm biến BMP280",
+			args0: [
+				{
+					"type": "field_dropdown",
+					"name": "bmp280_data_type",
+					"options": [
+						["áp suất", "pressure"],
+						["nhiệt độ", "temperature"],
+					]
+				}
+			],
+			output: "Number",
+			helpUrl: ""
+		});
+	}
+};
+
+Blockly.Python['smartcity_bmp280_read'] = function (block) {
+	var data_type = block.getFieldValue('bmp280_data_type');
+	var code = 'bmp280_sensor.' + data_type;
+
+	Blockly.Python.definitions_['import_smartcity_bmp280'] = 'from smartcity_bmp280 import BMP280';
+	Blockly.Python.definitions_['initital_smartcity_bmp280'] = "bmp280_sensor = BMP280(scl=SCL_PIN, sda=SDA_PIN)"
+
+	return [code, Blockly.Python.ORDER_ATOMIC];
+};
+
+/* Noise sensor */
+
+Blockly.Blocks['smartcity_read_noise'] = {
+	init: function () {
+		this.jsonInit({
+			message0: "độ ồn (dB)",
+			output: "Number",
+			colour: "#CC6600",
+			tooltip: "",
+			helpUrl: ""
+		});
+	}
+};
+
+Blockly.Python['smartcity_read_noise'] = function (block) {
+	Blockly.Python.definitions_['import_smartcity_read_noise'] = 'from smartcity_noise_sensor import ??';
+	Blockly.Python.definitions_['initial_smartcity_read_noise'] = 'noise_sensor = ??';
+	var code = "??"
+	return [code, Blockly.Python.ORDER_ATOMIC];
 };

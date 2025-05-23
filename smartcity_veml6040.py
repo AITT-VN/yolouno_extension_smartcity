@@ -120,7 +120,7 @@ class VEML6040:
 
         return int(ambientLightInLux)
 
-    def get_cct(self, offset):
+    def get_cct(self, offset=0):
         red = self.get_red()
         green = self.get_green()
         blue = self.get_blue()

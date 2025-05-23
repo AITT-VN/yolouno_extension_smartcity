@@ -112,10 +112,11 @@ class SHT30:
             if data == bytearray(response_size):
                 raise SHT30Error(SHT30Error.DATA_ERROR)
             return data
-        except OSError as ex:
-            if "I2C" in ex.args[0]:
-                raise SHT30Error(SHT30Error.BUS_ERROR)
-            raise ex
+        except Exception as ex:
+            if ex.args and ex.args[0] == 19:
+                print("I2C device not responding (errno 19)")
+            else:
+                print("Other error:", ex)
 
     def clear_status(self):
         """

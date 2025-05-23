@@ -16,8 +16,8 @@ ACD10_CALIBRATE_AUTO = 0x01
 
 
 class ACD1100:
-    def __init__(self, sda_pin, scl_pin, address=ACD10_DEFAULT_ADDRESS):
-        self.i2c = SoftI2C(scl=scl_pin, sda=sda_pin, freq=100000)
+    def __init__(self, sda, scl, address=ACD10_DEFAULT_ADDRESS):
+        self.i2c = SoftI2C(scl=scl, sda=sda, freq=100000)
         self.address = address
         self._last_read = 0
         self._concentration = 0

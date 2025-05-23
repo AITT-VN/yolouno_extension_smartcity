@@ -202,7 +202,7 @@ class BMP280:
         self._calc_t_fine()
         if self._t == 0:
             self._t = ((self._t_fine * 5 + 128) >> 8) / 100.
-        return self._t
+        return round(self._t, 1)
 
     @property
     def pressure(self):
@@ -226,7 +226,7 @@ class BMP280:
 
             p = ((p + var1 + var2) >> 8) + (self._P7 << 4)
             self._p = p / 256.0
-        return self._p
+        return round(self._p, 1)
 
     def _write_bits(self, address, value, length, shift=0):
         d = self._read(address)[0]
