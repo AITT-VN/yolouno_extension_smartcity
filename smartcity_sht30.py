@@ -30,25 +30,17 @@ class SHT30:
     WRITE_STATUS_MASK = 0x0001  # 0
 
     # MSB = 0x2C LSB = 0x06 Repeatability = High, Clock stretching = enabled
-    MEASURE_CMD = b"\x2c\x10"
+    MEASURE_CMD = b"\x24\x10"
     STATUS_CMD = b"\xf3\x2d"
     RESET_CMD = b"\x30\xa2"
     CLEAR_STATUS_CMD = b"\x30\x41"
     ENABLE_HEATER_CMD = b"\x30\x6d"
     DISABLE_HEATER_CMD = b"\x30\x66"
 
-    def __init__(
-        self,
-        scl=5,
-        sda=4,
-        i2c_address=DEFAULT_I2C_ADDRESS,
-        delta_temp=0,
-        delta_hum=0,
-    ):
-        self.i2c = SoftI2C(scl=Pin(scl), sda=Pin(sda))
+    def __init__(self,i2c_bus,i2c_address=DEFAULT_I2C_ADDRESS,delta_temp=0,delta_hum=0):
+        self.i2c = i2c_bus
         self.i2c_addr = i2c_address
         self.set_delta(delta_temp, delta_hum)
-        time.sleep_ms(50)
 
     def init(self, scl=5, sda=4):
         """

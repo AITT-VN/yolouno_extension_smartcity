@@ -1,5 +1,4 @@
 /* S12SD UV sensor */
-
 Blockly.Blocks["smartcity_read_uvi"] = {
 	init: function () {
 		this.jsonInit({
@@ -30,14 +29,13 @@ Blockly.Blocks["smartcity_read_uvi"] = {
 
 Blockly.Python["smartcity_read_uvi"] = function (block) {
 	var uv_pin = block.getFieldValue("uv_pin");
-	Blockly.Python.definitions_['import_from smartcity_s12sd import S12SD'] = 'from smartcity_s12sd import S12SD';
-	Blockly.Python.definitions_['initial_from smartcity_s12sd import S12SD'] = 'uv_sensor = S12SD()';
+	Blockly.Python.definitions_['import_S12SD'] = 'from smartcity_s12sd import S12SD';
+	Blockly.Python.definitions_['init_S12SD'] = 'uv_sensor = S12SD()';
 	var code = 'uv_sensor.read_uvi(pin=' + uv_pin + ')';
 	return [code, Blockly.Python.ORDER_NONE];
 };
 
 /* PM25 sensor */
-
 Blockly.Blocks["smartcity_read_pm25"] = {
 	init: function () {
 		this.jsonInit({
@@ -95,23 +93,19 @@ Blockly.Blocks["smartcity_read_pm25"] = {
 Blockly.Python["smartcity_read_pm25"] = function (block) {
 	var pm25_pintx = block.getFieldValue("pm25_pintx");
 	var pm25_pinrx = block.getFieldValue("pm25_pinrx");
-	Blockly.Python.definitions_['import_from smartcity_pm25 import HT5102'] = 'from smartcity_pm25 import HT5102';
-	Blockly.Python.definitions_['initial_from smartcity_pm25 import HT5102'] = 'pm25_sensor = HT5102()';
-	var code = 'pm25_sensor.read_pm_data(tx_pin=' + pm25_pintx + ', rx_pin=' + pm25_pinrx + ')';
+	Blockly.Python.definitions_['import_pm25'] = 'from smartcity_pm25 import HT5102';
+	Blockly.Python.definitions_['init_pm25'] = 'pm25_sensor = HT5102(tx_pin=' + pm25_pintx + ', rx_pin=' + pm25_pinrx + ')';
+	var code = 'pm25_sensor.read_pm_data()';
 	return [code, Blockly.Python.ORDER_NONE];
 };
 
 /* SHT30 temperature and humidity sensor */
-
 Blockly.Blocks["smartcity_sht30_read_temp"] = {
 	init: function () {
 		this.jsonInit({
 			colour: "#CC6600",
 			tooltip: "",
 			message0: "nhiệt độ SHT30",
-			args0: [
-
-			],
 			output: "Number",
 			helpUrl: ""
 		});
@@ -119,8 +113,9 @@ Blockly.Blocks["smartcity_sht30_read_temp"] = {
 };
 
 Blockly.Python["smartcity_sht30_read_temp"] = function (block) {
-	Blockly.Python.definitions_['import_from smartcity_sht30 import SHT30'] = 'from smartcity_sht30 import SHT30';
-	Blockly.Python.definitions_['initial_from smartcity_sht30 import SHT30'] = 'sht30_sensor = SHT30(scl=SCL_PIN, sda=SDA_PIN)';
+	Blockly.Python.definitions_['import_sht30'] = 'from smartcity_sht30 import SHT30';
+	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
+	Blockly.Python.definitions_['init_sht30'] = 'sht30_sensor = SHT30(i2c_bus=i2c_bus)';
 	var code = 'sht30_sensor.measure(fix=1)[0]';
 	return [code, Blockly.Python.ORDER_NONE];
 };
@@ -131,9 +126,6 @@ Blockly.Blocks["smartcity_sht30_read_humid"] = {
 			colour: "#CC6600",
 			tooltip: "",
 			message0: "độ ẩm SHT30",
-			args0: [
-
-			],
 			output: "Number",
 			helpUrl: ""
 		});
@@ -141,14 +133,14 @@ Blockly.Blocks["smartcity_sht30_read_humid"] = {
 };
 
 Blockly.Python["smartcity_sht30_read_humid"] = function (block) {
-	Blockly.Python.definitions_['import_from smartcity_sht30 import SHT30'] = 'from smartcity_sht30 import SHT30';
-	Blockly.Python.definitions_['initial_from smartcity_sht30 import SHT30'] = 'sht30_sensor = SHT30(scl=SCL_PIN, sda=SDA_PIN)';
+	Blockly.Python.definitions_['import_sht30'] = 'from smartcity_sht30 import SHT30';
+	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
+	Blockly.Python.definitions_['init_sht30'] = 'sht30_sensor = SHT30(i2c_bus=i2c_bus)';
 	var code = 'sht30_sensor.measure(fix=1)[1]';
 	return [code, Blockly.Python.ORDER_NONE];
 };
 
 /* VEML6040 light sensor */
-
 Blockly.Blocks['smartcity_veml6040_read_color'] = {
 	init: function () {
 		this.jsonInit({
@@ -186,8 +178,9 @@ Blockly.Python['smartcity_veml6040_read_color'] = function (block) {
 		code = 'veml6040_sensor.get_' + color.toLowerCase() + '()';
 	}
 
-	Blockly.Python.definitions_['import_smartcity_veml6040'] = 'from smartcity_veml6040 import VEML6040';
-	Blockly.Python.definitions_['initital_smartcity_veml6040'] = "veml6040_sensor = VEML6040(scl=SCL_PIN, sda=SDA_PIN)"
+	Blockly.Python.definitions_['import_veml6040'] = 'from smartcity_veml6040 import VEML6040';
+	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
+	Blockly.Python.definitions_['init_veml6040'] = "veml6040_sensor = VEML6040(i2c_bus=i2c_bus)"
 
 	return [code, Blockly.Python.ORDER_ATOMIC];
 };
@@ -221,18 +214,17 @@ Blockly.Blocks['smartcity_veml6040_detect_color'] = {
 Blockly.Python['smartcity_veml6040_detect_color'] = function (block) {
 	var detectColor = block.getFieldValue('DETECT_COLOR');
 	var code = '(veml6040_sensor.Classify_Hue() == "' + detectColor + '")';
-	Blockly.Python.definitions_['import_smartcity_veml6040'] = 'from smartcity_veml6040 import VEML6040';
-	Blockly.Python.definitions_['initital_smartcity_veml6040'] = "veml6040_sensor = VEML6040(scl=SCL_PIN, sda=SDA_PIN)"
+	Blockly.Python.definitions_['import_veml6040'] = 'from smartcity_veml6040 import VEML6040';
+	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
+	Blockly.Python.definitions_['init_veml6040'] = "veml6040_sensor = VEML6040(i2c_bus=i2c_bus)"
 	return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
 /* ACD1100 CO2 sensor */
-
 Blockly.Blocks['smartcity_acd1100_read_co2'] = {
 	init: function () {
 		this.jsonInit({
 			message0: "nồng độ CO2",
-			args0: [],
 			output: "Number",
 			colour: "#CC6600",
 			tooltip: "",
@@ -242,14 +234,14 @@ Blockly.Blocks['smartcity_acd1100_read_co2'] = {
 };
 
 Blockly.Python['smartcity_acd1100_read_co2'] = function (block) {
-	Blockly.Python.definitions_['import_smartcity_acd1100'] = 'from smartcity_acd1100 import ACD1100';
-	Blockly.Python.definitions_['initial_smartcity_acd1100'] = 'co2_sensor = ACD1100(scl=SCL_PIN, sda=SDA_PIN)';
+	Blockly.Python.definitions_['import_acd1100'] = 'from smartcity_acd1100 import ACD1100';
+	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
+	Blockly.Python.definitions_['init_acd1100'] = 'co2_sensor = ACD1100(i2c_bus=i2c_bus)';
 	var code = "co2_sensor.get_co2_concentration()"
 	return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
 /* LCD1602 */
-
 Blockly.Blocks["smartcity_lcd1602_backlight"] = {
 	init: function () {
 		this.jsonInit({
@@ -278,9 +270,9 @@ Blockly.Blocks["smartcity_lcd1602_backlight"] = {
 
 Blockly.Python['smartcity_lcd1602_backlight'] = function (block) {
 	var action = block.getFieldValue("action");
-	// TODO: Assemble Python into code variable.
 	Blockly.Python.definitions_['import_lcd1602'] = 'from smartcity_lcd1602 import LCD1602';
-	Blockly.Python.definitions_['init_lcd1602'] = 'lcd1602 = LCD1602()';
+	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
+	Blockly.Python.definitions_['init_lcd1602'] = 'lcd1602 = LCD1602(i2c_bus=i2c_bus)';
 	var code = 'lcd1602.backlight_' + action + '()\n';
 	return code;
 };
@@ -326,7 +318,8 @@ Blockly.Blocks["smartcity_lcd1602_display"] = {
 
 Blockly.Python["smartcity_lcd1602_display"] = function (block) {
 	Blockly.Python.definitions_['import_lcd1602'] = 'from smartcity_lcd1602 import LCD1602';
-	Blockly.Python.definitions_['init_lcd1602'] = 'lcd1602 = LCD1602(scl=SCL_PIN, sda=SDA_PIN)';
+	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
+	Blockly.Python.definitions_['init_lcd1602'] = 'lcd1602 = LCD1602(i2c_bus=i2c_bus)';
 	var string = Blockly.Python.valueToCode(block, 'string', Blockly.Python.ORDER_ATOMIC);
 	var x = Blockly.Python.valueToCode(block, 'X', Blockly.Python.ORDER_ATOMIC);
 	var y = Blockly.Python.valueToCode(block, 'Y', Blockly.Python.ORDER_ATOMIC);  // TODO: Assemble Python into code variable.
@@ -340,8 +333,6 @@ Blockly.Blocks["smartcity_lcd1602_clear"] = {
 			colour: "#CC6600",
 			tooltip: "",
 			message0: "xóa màn hình LCD1602",
-			args0: [
-			],
 			previousStatement: null,
 			nextStatement: null,
 			helpUrl: "Xóa trắng màn hình LCD1602",
@@ -352,8 +343,15 @@ Blockly.Blocks["smartcity_lcd1602_clear"] = {
 	}
 };
 
-/* BMP280 pressure and temperature sensor */
+Blockly.Python["smartcity_lcd1602_clear"] = function (block) {
+	Blockly.Python.definitions_['import_lcd1602'] = 'from smartcity_lcd1602 import LCD1602';
+	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
+	Blockly.Python.definitions_['init_lcd1602'] = 'lcd1602 = LCD1602(i2c_bus=i2c_bus)';
+	var code = "lcd1602.clear()";
+	return code;
+};
 
+/* BMP280 pressure and temperature sensor */
 Blockly.Blocks['smartcity_bmp280_read'] = {
 	init: function () {
 		this.jsonInit({
@@ -380,14 +378,14 @@ Blockly.Python['smartcity_bmp280_read'] = function (block) {
 	var data_type = block.getFieldValue('bmp280_data_type');
 	var code = 'bmp280_sensor.' + data_type;
 
-	Blockly.Python.definitions_['import_smartcity_bmp280'] = 'from smartcity_bmp280 import BMP280';
-	Blockly.Python.definitions_['initital_smartcity_bmp280'] = "bmp280_sensor = BMP280(scl=SCL_PIN, sda=SDA_PIN)"
+	Blockly.Python.definitions_['import_bmp280'] = 'from smartcity_bmp280 import BMP280';
+	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
+	Blockly.Python.definitions_['init_bmp280'] = "bmp280_sensor = BMP280(i2c_bus=i2c_bus)"
 
 	return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
 /* Noise sensor */
-
 Blockly.Blocks['smartcity_read_noise'] = {
 	init: function () {
 		this.jsonInit({
@@ -401,8 +399,8 @@ Blockly.Blocks['smartcity_read_noise'] = {
 };
 
 Blockly.Python['smartcity_read_noise'] = function (block) {
-	Blockly.Python.definitions_['import_smartcity_read_noise'] = 'from smartcity_noise_sensor import ??';
-	Blockly.Python.definitions_['initial_smartcity_read_noise'] = 'noise_sensor = ??';
+	Blockly.Python.definitions_['import_read_noise'] = 'from smartcity_noise_sensor import ??';
+	Blockly.Python.definitions_['init_read_noise'] = 'noise_sensor = ??';
 	var code = "??"
 	return [code, Blockly.Python.ORDER_ATOMIC];
 };

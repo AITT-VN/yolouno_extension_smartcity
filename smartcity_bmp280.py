@@ -87,8 +87,9 @@ _BMP280_REGISTER_DATA = const(0xF7)
 
 
 class BMP280:
-    def __init__(self, scl, sda, addr=0x76, use_case=BMP280_CASE_HANDHELD_DYN):
-        self._bmp_i2c = SoftI2C(sda=sda, scl=scl)
+
+    def __init__(self, i2c_bus, addr=0x76, use_case=BMP280_CASE_HANDHELD_DYN):
+        self._bmp_i2c = i2c_bus
         self._i2c_addr = addr
 
         # read calibration data

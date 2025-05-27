@@ -16,8 +16,8 @@ ACD10_CALIBRATE_AUTO = 0x01
 
 
 class ACD1100:
-    def __init__(self, sda, scl, address=ACD10_DEFAULT_ADDRESS):
-        self.i2c = SoftI2C(scl=scl, sda=sda, freq=100000)
+    def __init__(self, i2c_bus, address=ACD10_DEFAULT_ADDRESS):
+        self.i2c = i2c_bus
         self.address = address
         self._last_read = 0
         self._concentration = 0
@@ -76,7 +76,17 @@ class ACD1100:
         return ACD10_OK
 
     def get_co2_concentration(self):
-        return self._concentration
+        self._command(bytes([0x03, 0x00]))
+        buf = self._request(9)
+        if buf is None:
+            print("no data")
+            return ACD10_REQUEST_ERROR
+
+        if buf[2] != self._crc8(buf[0:2]) or buf[5] != self._crc8(buf[3:5]) or buf[8] != self._crc8(buf[6:8]):
+            print("crc error")
+            return ACD10_CRC_ERROR
+
+        return (buf[0] << 24) | (buf[1] << 16) | (buf[3] << 8) | buf[4]
 
     def get_temperature(self):
         return self._temperature
