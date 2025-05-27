@@ -1,5 +1,5 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-  <category name="SMART CITY" colour="#CC6600" icon="home">
+  <category name="SMART CITY" colour="#CC6600" icon="building">
     <block type="smartcity_read_uvi" />
     <block type="smartcity_read_pm25" />
     <block type="smartcity_sht30_read_temp" />

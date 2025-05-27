@@ -1,5 +1,5 @@
 {
-    "name": "HOME:BIT V3",
+    "name": "Smart City",
     "description": "Mục mở rộng dành cho bộ kit nhà thông minh version 3",
     "libs": [
         "smartcity_s12sd.py", 
