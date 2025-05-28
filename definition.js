@@ -385,8 +385,8 @@ Blockly.Python['smartcity_bmp280_read'] = function (block) {
 	return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
-/* Noise sensor */
-Blockly.Blocks['smartcity_read_noise'] = {
+/* Sound Level Meter sensor */
+Blockly.Blocks['smartcity_slm_read'] = {
 	init: function () {
 		this.jsonInit({
 			message0: "độ ồn (dB)",
@@ -398,9 +398,42 @@ Blockly.Blocks['smartcity_read_noise'] = {
 	}
 };
 
-Blockly.Python['smartcity_read_noise'] = function (block) {
-	Blockly.Python.definitions_['import_read_noise'] = 'from smartcity_noise_sensor import ??';
-	Blockly.Python.definitions_['init_read_noise'] = 'noise_sensor = ??';
-	var code = "??"
+Blockly.Python['smartcity_slm_read'] = function (block) {
+	Blockly.Python.definitions_['import_read_noise'] = 'from smartcity_sound_level_meter import SoundLevelSensor';
+	Blockly.Python.definitions_['define_SoftI2C'] = "i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)"
+	Blockly.Python.definitions_['init_read_noise'] = 'sl_sensor = SoundLevelSensor(i2c_bus=i2c_bus)';
+	var code = "sl_sensor.read_decibel()"
 	return [code, Blockly.Python.ORDER_ATOMIC];
 };
+
+Blockly.Blocks['smartcity_slm_calibrate'] = {
+	init: function () {
+		this.jsonInit({
+			message0: "hiệu chỉnh module đo độ ồn giá trị %1",
+			colour: "#CC6600",
+			args0: [
+				{
+					type: "input_value",
+					name: "slm_cal_value",
+					check: "Number",
+					min: -32768,
+					max: 32767
+				},
+			],
+			tooltip: "",
+			helpUrl: "",
+			previousStatement: null,
+			nextStatement: null,
+		});
+	}
+};
+
+Blockly.Python['smartcity_slm_calibrate'] = function (block) {
+	Blockly.Python.definitions_['import_read_noise'] = 'from smartcity_sound_level_meter import SoundLevelSensor';
+	Blockly.Python.definitions_['define_SoftI2C'] = "i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)"
+	Blockly.Python.definitions_['init_read_noise'] = 'sl_sensor = SoundLevelSensor(i2c_bus=i2c_bus)';
+	var cal_val = Blockly.Python.valueToCode(block, 'slm_cal_value', Blockly.Python.ORDER_ATOMIC);
+	var code = "sl_sensor.calibrate(" + cal_val + ")\n";
+	return code
+};
+

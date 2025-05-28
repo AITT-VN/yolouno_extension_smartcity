@@ -10,7 +10,7 @@
         "smartcity_acd1100.py",
         "smartcity_bmp280.py",
         "smartcity_windspeed.py",
-        "smartcity_noise_sensor.py"
+        "smartcity_sound_level_meter.py"
     ],
     "blocks": [
         "definition.js"

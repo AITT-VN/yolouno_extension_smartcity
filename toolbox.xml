@@ -6,7 +6,6 @@
     <block type="smartcity_sht30_read_humid" />
     <block type="smartcity_veml6040_read_color" />
     <block type="smartcity_veml6040_detect_color" />
-    <block type="smartcity_read_noise" />
     <block type="smartcity_acd1100_read_co2" />
     <block type="smartcity_lcd1602_backlight" />
     <block type="smartcity_lcd1602_display">
@@ -28,6 +27,13 @@
     </block>
     <block type="smartcity_lcd1602_clear" />
     <block type="smartcity_bmp280_read" />
-
+    <block type="smartcity_slm_read" />
+    <block type="smartcity_slm_calibrate" >
+      <value name="slm_cal_value">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
   </category>
 </xml>
