@@ -30,7 +30,7 @@ class SHT30:
     WRITE_STATUS_MASK = 0x0001  # 0
 
     # MSB = 0x2C LSB = 0x06 Repeatability = High, Clock stretching = enabled
-    MEASURE_CMD = b"\x24\x10"
+    MEASURE_CMD = b"\x2c\x10"
     STATUS_CMD = b"\xf3\x2d"
     RESET_CMD = b"\x30\xa2"
     CLEAR_STATUS_CMD = b"\x30\x41"
@@ -88,14 +88,9 @@ class SHT30:
         The responsed data is validated by CRC
         """
         try:
-            self.i2c.start()
             self.i2c.writeto(self.i2c_addr, cmd_request)
-            if not response_size:
-                self.i2c.stop()
-                return
             time.sleep_ms(read_delay_ms)
             data = self.i2c.readfrom(self.i2c_addr, response_size)
-            self.i2c.stop()
             for i in range(response_size // 3):
                 if not self._check_crc(
                     data[i * 3 : (i + 1) * 3]

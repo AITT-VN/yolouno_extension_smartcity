@@ -100,45 +100,37 @@ Blockly.Python["smartcity_read_pm25"] = function (block) {
 };
 
 /* SHT30 temperature and humidity sensor */
-Blockly.Blocks["smartcity_sht30_read_temp"] = {
+Blockly.Blocks["smartcity_sht30_read"] = {
 	init: function () {
 		this.jsonInit({
 			colour: "#CC6600",
 			tooltip: "",
-			message0: "nhiệt độ SHT30",
+			message0: "đọc %1 SHT30",
+			args0: [
+				{
+					"type": "field_dropdown",
+					"name": "sht30_data_type",
+					"options": [
+						["nhiệt độ", "0"],
+						["độ ẩm", "1"],
+					]
+				}
+			],
 			output: "Number",
 			helpUrl: ""
 		});
 	}
 };
 
-Blockly.Python["smartcity_sht30_read_temp"] = function (block) {
+Blockly.Python["smartcity_sht30_read"] = function (block) {
 	Blockly.Python.definitions_['import_sht30'] = 'from smartcity_sht30 import SHT30';
 	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
 	Blockly.Python.definitions_['init_sht30'] = 'sht30_sensor = SHT30(i2c_bus=i2c_bus)';
-	var code = 'sht30_sensor.measure(fix=1)[0]';
+	var data_type = block.getFieldValue('sht30_data_type');
+	var code = 'sht30_sensor.measure(fix=1)[' + data_type + ']';
 	return [code, Blockly.Python.ORDER_NONE];
 };
 
-Blockly.Blocks["smartcity_sht30_read_humid"] = {
-	init: function () {
-		this.jsonInit({
-			colour: "#CC6600",
-			tooltip: "",
-			message0: "độ ẩm SHT30",
-			output: "Number",
-			helpUrl: ""
-		});
-	}
-};
-
-Blockly.Python["smartcity_sht30_read_humid"] = function (block) {
-	Blockly.Python.definitions_['import_sht30'] = 'from smartcity_sht30 import SHT30';
-	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
-	Blockly.Python.definitions_['init_sht30'] = 'sht30_sensor = SHT30(i2c_bus=i2c_bus)';
-	var code = 'sht30_sensor.measure(fix=1)[1]';
-	return [code, Blockly.Python.ORDER_NONE];
-};
 
 /* VEML6040 light sensor */
 Blockly.Blocks['smartcity_veml6040_read_color'] = {
@@ -357,7 +349,7 @@ Blockly.Blocks['smartcity_bmp280_read'] = {
 		this.jsonInit({
 			colour: "#CC6600",
 			tooltip: "",
-			message0: "đọc %1 cảm biến BMP280",
+			message0: "đọc %1 BMP280",
 			args0: [
 				{
 					"type": "field_dropdown",

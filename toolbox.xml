@@ -2,8 +2,7 @@
   <category name="SMART CITY" colour="#CC6600" icon="building">
     <block type="smartcity_read_uvi" />
     <block type="smartcity_read_pm25" />
-    <block type="smartcity_sht30_read_temp" />
-    <block type="smartcity_sht30_read_humid" />
+    <block type="smartcity_sht30_read" />
     <block type="smartcity_veml6040_read_color" />
     <block type="smartcity_veml6040_detect_color" />
     <block type="smartcity_acd1100_read_co2" />
