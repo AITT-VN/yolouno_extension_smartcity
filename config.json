@@ -9,7 +9,7 @@
         "smartcity_lcd1602.py",
         "smartcity_acd1100.py",
         "smartcity_bmp280.py",
-        "smartcity_windspeed.py",
+        "smartcity_anemometer.py",
         "smartcity_sound_level_meter.py"
     ],
     "blocks": [

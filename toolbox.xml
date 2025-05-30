@@ -35,5 +35,6 @@
         </shadow>
       </value>
     </block>
+    <block type="smartcity_anemometer_read" />
   </category>
 </xml>

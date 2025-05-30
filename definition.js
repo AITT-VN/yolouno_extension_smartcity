@@ -437,3 +437,40 @@ Blockly.Python['smartcity_slm_calibrate'] = function (block) {
 	return code
 };
 
+/* Anemometer */
+
+Blockly.Blocks["smartcity_anemometer_read"] = {
+	init: function () {
+		this.jsonInit({
+			colour: "#CC6600",
+			tooltip: "",
+			message0: "tốc độ gió chân %1",
+			args0: [
+				{
+					type: "field_dropdown",
+					name: "ane_pin",
+					options: [
+						["A0", "A0_PIN"],
+						["A1", "A1_PIN"],
+						["A2", "A2_PIN"],
+						["A3", "A3_PIN"],
+						["A4", "A4_PIN"],
+						["A5", "A5_PIN"],
+						["A6", "A6_PIN"],
+						["A7", "A7_PIN"]
+					]
+				}
+			],
+			output: "Number",
+			helpUrl: ""
+		});
+	}
+};
+
+Blockly.Python["smartcity_anemometer_read"] = function (block) {
+	var uv_pin = block.getFieldValue("ane_pin");
+	Blockly.Python.definitions_['import_Anemometer'] = 'from smartcity_anemometer import Anemometer';
+	Blockly.Python.definitions_['init_Anemometer'] = 'ane_sensor = Anemometer()';
+	var code = 'ane_sensor.read_wind_speed(pin=' + uv_pin + ')';
+	return [code, Blockly.Python.ORDER_NONE];
+}; 
