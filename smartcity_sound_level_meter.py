@@ -57,6 +57,8 @@ class SoundLevelSensor:
     def calibrate(self, calibrate_value):
         if not -32768 <= calibrate_value <= 32767:
             raise ValueError("Giá trị phải nằm trong khoảng [-32768, 32767]")
+        
+        calibrate_value = calibrate_value * 10;
 
         # Convert to two bytes in little-endian format
         low_byte = calibrate_value & 0xFF

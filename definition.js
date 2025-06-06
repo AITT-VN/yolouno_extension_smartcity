@@ -84,7 +84,7 @@ Blockly.Blocks["smartcity_read_pm25"] = {
 					]
 				}
 			],
-			output: "undefined",
+			output: "Number",
 			helpUrl: ""
 		});
 	}
@@ -401,7 +401,7 @@ Blockly.Python['smartcity_slm_read'] = function (block) {
 Blockly.Blocks['smartcity_slm_calibrate'] = {
 	init: function () {
 		this.jsonInit({
-			message0: "hiệu chỉnh module đo độ ồn giá trị %1",
+			message0: "hiệu chỉnh module đo độ ồn giá trị %1 %2",
 			colour: "#CC6600",
 			args0: [
 				{
@@ -410,6 +410,9 @@ Blockly.Blocks['smartcity_slm_calibrate'] = {
 					check: "Number",
 					min: -32768,
 					max: 32767
+				},
+				{
+					type: "input_dummy"
 				},
 			],
 			tooltip: "",
