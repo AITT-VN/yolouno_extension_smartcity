@@ -14,5 +14,5 @@ class Anemometer:
             speed_raw = speed_raw + self.read_raw()
         speed_raw = speed_raw / 100
 
-        speed = speed_raw * 70 / 4095
+        speed = speed_raw * 60 / 4095
         return round(speed, 1)

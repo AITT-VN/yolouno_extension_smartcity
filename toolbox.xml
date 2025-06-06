@@ -1,11 +1,13 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
   <category name="SMART CITY" colour="#CC6600" icon="building">
-    <block type="smartcity_read_uvi" />
-    <block type="smartcity_read_pm25" />
-    <block type="smartcity_sht30_read" />
-    <block type="smartcity_veml6040_read_color" />
-    <block type="smartcity_veml6040_detect_color" />
-    <block type="smartcity_acd1100_read_co2" />
+  <block type="coreiot_connect"/>
+  <block type="coreiot_send_telemetry_short">
+    <value name="VALUE">
+      <shadow type="text">
+        <field name="TEXT">25</field>
+      </shadow>
+    </value>
+  </block>
     <block type="smartcity_lcd1602_backlight" />
     <block type="smartcity_lcd1602_display">
       <value name="string">
@@ -25,7 +27,9 @@
       </value>
     </block>
     <block type="smartcity_lcd1602_clear" />
-    <block type="smartcity_bmp280_read" />
+    <block type="smartcity_sht30_read" />
+    <block type="smartcity_anemometer_read" />
+    <block type="smartcity_read_uvi" />
     <block type="smartcity_slm_read" />
     <block type="smartcity_slm_calibrate" >
       <value name="slm_cal_value">
@@ -34,6 +38,7 @@
         </shadow>
       </value>
     </block>
-    <block type="smartcity_anemometer_read" />
+    <block type="smartcity_read_pm25" />
+    <block type="smartcity_acd1100_read_co2" />
   </category>
 </xml>

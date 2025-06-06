@@ -5,12 +5,14 @@
         "smartcity_s12sd.py", 
         "smartcity_pm25.py",
         "smartcity_sht30.py",
-        "smartcity_veml6040.py",
         "smartcity_lcd1602.py",
         "smartcity_acd1100.py",
-        "smartcity_bmp280.py",
         "smartcity_anemometer.py",
-        "smartcity_sound_level_meter.py"
+        "smartcity_sound_level_meter.py",
+        "sdk_utils.py",
+        "mqtt_as.py",
+        "provision_client.py",
+        "ci_device_mqtt.py"
     ],
     "blocks": [
         "definition.js"

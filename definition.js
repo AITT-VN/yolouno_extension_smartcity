@@ -1,3 +1,191 @@
+/* CoreIoT */
+var virtualPins = [
+  [
+    "V0",
+    "0"
+  ],
+  [
+    "V1",
+    "1"
+  ],
+  [
+    "V2",
+    "2"
+  ],
+  [
+    "V3",
+    "3"
+  ],
+  [
+    "V4",
+    "4"
+  ],
+  [
+    "V5",
+    "5"
+  ],
+  [
+    "V6",
+    "6"
+  ],
+  [
+    "V7",
+    "7"
+  ],
+  [
+    "V8",
+    "8"
+  ],
+  [
+    "V9",
+    "9"
+  ],
+  [
+    "V10",
+    "10"
+  ],
+  [
+    "V11",
+    "11"
+  ],
+  [
+    "V12",
+    "12"
+  ],
+  [
+    "V13",
+    "13"
+  ],
+  [
+    "V14",
+    "14"
+  ],
+  [
+    "V15",
+    "15"
+  ],
+  [
+    "V16",
+    "16"
+  ],
+  [
+    "V17",
+    "17"
+  ],
+  [
+    "V18",
+    "18"
+  ],
+  [
+    "V19",
+    "19"
+  ],
+  [
+    "V20",
+    "20"
+  ]
+];
+
+Blockly.Blocks["coreiot_connect"] = {
+  init: function () {
+    this.jsonInit({
+      colour: "#CC6600",
+      tooltip: "Connect to server Core IoT",
+      message0: "connect Core IoT wifi %1 password %2 %3 access token %4 %5 server %6 port %7",
+      previousStatement: null,
+      nextStatement: null,
+      args0: [
+        {
+          "type": "field_input",
+          "name": "WIFI",
+          "text": "ssid"
+        },
+        {
+          "type": "field_input",
+          "name": "PASSWORD",
+          "text": "password"
+        },
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "field_input",
+          "name": "TOKEN",
+          "text": "xxxxxxxxxxxxxxxxxxxx"
+        },
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "field_input",
+          "name": "HOST",
+          "text": "app.coreiot.io"
+        },
+        {
+          "type": "field_input",
+          "name": "PORT",
+          "text": "1883"
+        },
+      ],
+      helpUrl: "",
+    });
+  },
+};
+
+Blockly.Python['coreiot_connect'] = function(block) {
+  var wifi = block.getFieldValue('WIFI');
+  var password = block.getFieldValue('PASSWORD');
+  var token = block.getFieldValue('TOKEN');
+  var host = block.getFieldValue('HOST');
+  var port = block.getFieldValue('PORT');
+
+  Blockly.Python.definitions_['import_coreiot'] = 'from ci_device_mqtt import *';
+  Blockly.Python.definitions_['init_coreiot_mqtt'] = "ci_client = CIDeviceMqttClient('" + wifi + "', '" + password + "', '" + token + "', '" + host+ "', " + port + ")\n";
+  
+  // TODO: Assemble Python into code variable.
+  var code = "await ci_client.connect()\n";
+  return code;
+};
+
+Blockly.Blocks["coreiot_send_telemetry_short"] = {
+  init: function () {
+    this.jsonInit({
+      colour: "#CC6600",
+      nextStatement: null,
+      tooltip: "Send telemetry to server",
+      message0: "send telemetry %1 %2 : %3 %4",
+      previousStatement: null,
+      args0: [
+        {
+          type: "field_dropdown",
+          name: "KEY",
+          options: virtualPins,
+        },
+        {
+          type: "input_dummy",
+        },
+        {
+          type: "input_value",
+          name: "VALUE",
+        },        
+        {
+          type: "input_dummy",
+        }
+      ],
+      helpUrl: "",
+    });
+  },
+};
+
+Blockly.Python['coreiot_send_telemetry_short'] = function(block) {
+  var value = Blockly.Python.valueToCode(block, 'VALUE', Blockly.Python.ORDER_ATOMIC);
+  var key = block.getFieldValue('KEY');
+  // TODO: Assemble Python into code variable.
+  Blockly.Python.definitions_['import_coreiot'] = 'from ci_device_mqtt import *';
+  var code = "await ci_client.send_telemetry({'V" + key + "': " + value + "})\n";
+  return code;
+};
+
 /* S12SD UV sensor */
 Blockly.Blocks["smartcity_read_uvi"] = {
 	init: function () {
@@ -131,87 +319,6 @@ Blockly.Python["smartcity_sht30_read"] = function (block) {
 	return [code, Blockly.Python.ORDER_NONE];
 };
 
-
-/* VEML6040 light sensor */
-Blockly.Blocks['smartcity_veml6040_read_color'] = {
-	init: function () {
-		this.jsonInit({
-			colour: "#CC6600",
-			tooltip: "Đọc giá trị RGB từ cảm biến",
-			message0: "cảm biến VEML6040 đọc %1",
-			args0: [
-				{
-					"type": "field_dropdown",
-					"name": "COLOR",
-					"options": [
-						["độ sáng (lux)", "LUX"],
-						["giá trị đỏ", "RED"],
-						["giá trị xanh lá", "GREEN"],
-						["giá trị xanh dương", "BLUE"],
-						["nhiệt độ màu", "CCT"]
-					]
-				}
-			],
-			output: "Number",
-			helpUrl: ""
-		});
-	}
-};
-
-Blockly.Python['smartcity_veml6040_read_color'] = function (block) {
-	var color = block.getFieldValue('COLOR');
-	var code = '';
-
-	if (color === 'LUX') {
-		code = 'veml6040_sensor.get_lux()';
-	} else if (color === 'CCT') {
-		code = 'veml6040_sensor.get_cct()';
-	} else {
-		code = 'veml6040_sensor.get_' + color.toLowerCase() + '()';
-	}
-
-	Blockly.Python.definitions_['import_veml6040'] = 'from smartcity_veml6040 import VEML6040';
-	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
-	Blockly.Python.definitions_['init_veml6040'] = "veml6040_sensor = VEML6040(i2c_bus=i2c_bus)"
-
-	return [code, Blockly.Python.ORDER_ATOMIC];
-};
-
-Blockly.Blocks['smartcity_veml6040_detect_color'] = {
-	init: function () {
-		this.jsonInit({
-			message0: "cảm biến VEML6040 phát hiện màu %1",
-			args0: [
-				{
-					"type": "field_dropdown",
-					"name": "DETECT_COLOR",
-					"options": [
-						["vàng", "yellow"],
-						["đỏ", "red"],
-						["xanh lá", "green"],
-						["xanh lơ", "cyan"],
-						["xanh dương", "blue"],
-						["hồng thẫm", "magenta"]
-					]
-				}
-			],
-			output: "Boolean",
-			colour: "#CC6600",
-			tooltip: "Phát hiện màu sắc cụ thể",
-			helpUrl: ""
-		});
-	}
-};
-
-Blockly.Python['smartcity_veml6040_detect_color'] = function (block) {
-	var detectColor = block.getFieldValue('DETECT_COLOR');
-	var code = '(veml6040_sensor.Classify_Hue() == "' + detectColor + '")';
-	Blockly.Python.definitions_['import_veml6040'] = 'from smartcity_veml6040 import VEML6040';
-	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
-	Blockly.Python.definitions_['init_veml6040'] = "veml6040_sensor = VEML6040(i2c_bus=i2c_bus)"
-	return [code, Blockly.Python.ORDER_ATOMIC];
-};
-
 /* ACD1100 CO2 sensor */
 Blockly.Blocks['smartcity_acd1100_read_co2'] = {
 	init: function () {
@@ -339,42 +446,8 @@ Blockly.Python["smartcity_lcd1602_clear"] = function (block) {
 	Blockly.Python.definitions_['import_lcd1602'] = 'from smartcity_lcd1602 import LCD1602';
 	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
 	Blockly.Python.definitions_['init_lcd1602'] = 'lcd1602 = LCD1602(i2c_bus=i2c_bus)';
-	var code = "lcd1602.clear()";
+	var code = "lcd1602.clear()\n";
 	return code;
-};
-
-/* BMP280 pressure and temperature sensor */
-Blockly.Blocks['smartcity_bmp280_read'] = {
-	init: function () {
-		this.jsonInit({
-			colour: "#CC6600",
-			tooltip: "",
-			message0: "đọc %1 BMP280",
-			args0: [
-				{
-					"type": "field_dropdown",
-					"name": "bmp280_data_type",
-					"options": [
-						["áp suất", "pressure"],
-						["nhiệt độ", "temperature"],
-					]
-				}
-			],
-			output: "Number",
-			helpUrl: ""
-		});
-	}
-};
-
-Blockly.Python['smartcity_bmp280_read'] = function (block) {
-	var data_type = block.getFieldValue('bmp280_data_type');
-	var code = 'bmp280_sensor.' + data_type;
-
-	Blockly.Python.definitions_['import_bmp280'] = 'from smartcity_bmp280 import BMP280';
-	Blockly.Python.definitions_['define_SoftI2C'] = 'i2c_bus = machine.SoftI2C(scl=SCL_PIN, sda=SDA_PIN)';
-	Blockly.Python.definitions_['init_bmp280'] = "bmp280_sensor = BMP280(i2c_bus=i2c_bus)"
-
-	return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
 /* Sound Level Meter sensor */
