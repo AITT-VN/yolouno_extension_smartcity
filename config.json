@@ -1,6 +1,6 @@
 {
     "name": "Smart City",
-    "description": "Mục mở rộng dành cho bộ kit nhà thông minh version 3",
+    "description": "Mục mở rộng dành cho bộ kit Smart City - Thành phố thông minh",
     "libs": [
         "smartcity_s12sd.py", 
         "smartcity_pm25.py",
